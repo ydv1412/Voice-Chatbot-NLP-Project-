@@ -1,0 +1,15 @@
+openai-whisper
+soundfile
+numpy
+sounddevice
+webrtcvad
+pydub
+pyttsx3
+python-dotenv
+neo4j
+llama-cpp-python
+librosa
+scikit-learn
+requests
+fastapi
+uvicorn

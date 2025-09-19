@@ -1,0 +1,15 @@
+
+__pycache__/
+/__pycache__/
+*.pyc
+.venv/
+Extracted dataset versions/
+test_dataset/
+.ipynb_checkpoints/
+enwikiquote-20250601-pages-articles.xml/
+/.cache/
+.env/
+
+/eval.py
+/eval_text.py
+
