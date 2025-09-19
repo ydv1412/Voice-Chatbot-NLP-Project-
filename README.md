@@ -37,7 +37,3 @@ conda deactivate && conda activate step2
 python Step_2/main.py
 ```
 
-## Notes
-- Keep secrets in env vars or a local `.env` (do **not** commit credentials).
-- Avoid committing large models/audio (>100 MB). Use Git LFS or keep them local.
-
