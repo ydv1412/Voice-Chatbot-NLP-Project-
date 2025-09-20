@@ -29,8 +29,7 @@ Spoken input → Whisper ASR → fragment extraction → Neo4j full‑text searc
 |  ├─ intent_mapper.py
 |  ├─ dialogue.py
 │  └─ requirements.txt
-├─ notebooks                    # (optional) data extraction / preprocessing notebooks
-├─ test_dataset/                # (optional) sample data
+├─ notebooks                    #  data extraction / preprocessing notebooks
 ├─ .gitignore
 └─ README.md
 
