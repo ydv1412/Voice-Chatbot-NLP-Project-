@@ -1,39 +1,62 @@
-# Voice-Driven Quote Assistant
+# Voice-Driven Quote Assistant (NLP Project)
 
-A **voice-first, retrieval-grounded** assistant that completes quotes and answers *who / source / disputed* strictly from a **Neo4j** graph (no hallucinations). Spoken input → Whisper ASR → fragment extraction → Neo4j full-text search (`quoteTextFT`) + rerank → **verbatim** answer via TTS.
+A **voice-first, retrieval-grounded** assistant that completes quotes and answers *who / source / disputed* strictly from a **Neo4j** graph (no hallucinations).  
+Spoken input → Whisper ASR → fragment extraction → Neo4j full‑text search (`quoteTextFT`) + rerank → **verbatim** answer via TTS.
+
+---
 
 ## Features
-- Neo4j graph: `Quote` ↔ `Person` via `SAID_BY` / `ABOUT` / `MISATTRIBUTED_TO` / `DISPUTED_WITH`
-- Full-text index on `:Quote(text)` + lightweight reranker for robust fragment matching
-- WebRTC VAD + Faster-Whisper (tiny/small); optional LLM for fuzzy intent (`USE_LLM_INTENTS=1`)
-- Per-user TTS preferences and basic speaker ID
+- **Grounded retrieval:** Neo4j graph with `Quote` ↔ `Person` via `SAID_BY` / `ABOUT` / `MISATTRIBUTED_TO` / `DISPUTED_WITH`.
+- **Fast search:** Lucene-backed full‑text index on `:Quote(text)` + lightweight reranker for robust partial fragments.
+- **Voice pipeline:** WebRTC VAD + Faster-Whisper (tiny/small). Optional LLM router for fuzzy intents (`USE_LLM_INTENTS=1`).
+- **Personalization:** Basic speaker ID and per-user TTS preferences (voice/rate/volume).
 
-## Quickstart
+---
 
-### Step 1 — API (FastAPI + Neo4j)
-```powershell
-python -m venv .venv
-. .\.venv\Scripts\Activate.ps1
-pip install -r requirements-step1.txt
-
-$env:NEO4J_URI      = "neo4j://127.0.0.1:7687"
-$env:NEO4J_USER     = "neo4j"
-$env:NEO4J_PASSWORD = "<your-password>"
-$env:NEO4J_DATABASE = "neo4j"   # or 'quotes_db'
-
-uvicorn API:app --reload --port 8000
+## Repository Layout (typical)
 ```
-Test: `curl "http://127.0.0.1:8000/complete?fragment=two%20things%20are%20infinite"`
+.
+├─ Step_2/                      # Step 2: Client (ASR + Router + TTS)
+│  ├─ main.py
+|  ├─ asr.py
+|  ├─ audio_utils.py
+|  ├─ session.py.py
+|  ├─ llm.py
+|  ├─ user_prefs.py 
+|  ├─ speaker_id.py
+|  ├─ config.py
+|  ├─ retriever.py
+|  ├─ intent_mapper.py
+|  ├─ dialogue.py
+│  └─ requirements.txt
+├─ notebooks                    # (optional) data extraction / preprocessing notebooks
+├─ test_dataset/                # (optional) sample data
+├─ .gitignore
+└─ README.md
 
-### Step 2 — Client (ASR + Router + TTS)
+### To run the project
+1) **Create env & install dependencies**
 ```bash
 conda create -n step2 python=3.11 -y
 conda activate step2
 pip install -r Step_2/requirements.txt
-
-conda env config vars set STEP1_API_BASE="http://127.0.0.1:8000" ASR_MODEL=small SIM_THRESHOLD=0.75
+```
+2) **Set variables (persist in conda)**
+```bash
+conda env config vars set \
+  STEP1_API_BASE="http://127.0.0.1:8000" \
+  ASR_MODEL=small \
+  SIM_THRESHOLD=0.75
+# Optional (slower): enable LLM intent mapper
+conda env config vars set USE_LLM_INTENTS=1
 conda deactivate && conda activate step2
-
+```
+3) **Run**
+```bash
 python Step_2/main.py
 ```
+
+Note:
+You should have a graph database API to fetch the records from.
+
 
