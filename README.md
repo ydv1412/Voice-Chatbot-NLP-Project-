@@ -684,7 +684,7 @@ Potential improvements include:
 
 A detailed presentation covering the complete architecture, quote extraction, Neo4j graph design, voice interface, retrieval pipeline, speaker recognition and evaluation is available in this repository.
 
-👉 **[View Project Presentation](./Voice_Quote_Assistant_Presentation.pptx)**
+👉 **[View Project Report](./Project_report.pdf)**
 
 ---
 
