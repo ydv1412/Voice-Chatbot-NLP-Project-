@@ -690,23 +690,6 @@ A detailed presentation covering the complete architecture, quote extraction, Ne
 
 #  Demo
 
-A short system demonstration can be added here showing:
-
-```text
-Voice Query
-    ↓
-Whisper Transcription
-    ↓
-Speaker Recognition
-    ↓
-Quote Retrieval
-    ↓
-Neo4j Relationships
-    ↓
-Follow-up Question
-    ↓
-Personalized Voice Response
-```
 
 >  **Project demo: Coming soon**
 
